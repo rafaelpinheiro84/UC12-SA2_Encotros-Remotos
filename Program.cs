@@ -1,5 +1,7 @@
-﻿using Cadastro_Pessoa_FS1.Classes;
+﻿// See https://aka.ms/new-console-template for more information
+//Console.WriteLine("Hello, World!");
 
+using Cadastro_Pessoa_FS1.Classes;
 
 Console.WriteLine(@$"
 ===============================================
@@ -8,8 +10,9 @@ Console.WriteLine(@$"
 ===============================================
 ");
 
-
 BarraCarregamento("Carregando", 500);
+
+// Console.WriteLine($"Sem Cor!"); Para testar o Reset Color
 
 string? opcao;
 do
@@ -52,8 +55,12 @@ do
       Console.WriteLine(@$"
 Nome: {novaPf.nome}
 Endereco: {novaPf.endereco.logradouro}, {novaPf.endereco.numero}
-Maior de idade: {metodoPf.validarDatanascimento(novaPf.dataNascimento)}
+Maior de idade: {(metodoPf.validarDatanascimento(novaPf.dataNascimento) ? "sim" : "Não")}
+Taxa de imposto a ser paga é; {metodoPf.PagarImposto(novaPf.rendimento).ToString("C")}
 ");
+      // ToString converte para padrao moeda e corta as casas decimais
+      // ?:  if else
+
 
       Console.WriteLine($"Aperte 'Enter' para continuar");
       Console.ReadLine();
@@ -61,7 +68,6 @@ Maior de idade: {metodoPf.validarDatanascimento(novaPf.dataNascimento)}
       break;
 
     case "2":
-
       PessoaJuridica metodoPj = new PessoaJuridica();
 
       PessoaJuridica novaPj = new PessoaJuridica();
@@ -84,7 +90,9 @@ Maior de idade: {metodoPf.validarDatanascimento(novaPf.dataNascimento)}
 Nome: {novaPj.nome}
 Razão Social: {novaPj.razaoSocial}
 CNPJ: {novaPj.cnpj}
- CNPJ Vàlido: {metodoPj.validarCnpj(novaPj.cnpj)}");
+CNPJ Vàlido: {(metodoPj.validarCnpj(novaPj.cnpj) ? "Sim" : "Não")}
+Taxa de imposto a ser paga é: {metodoPj.PagarImposto(novaPj.rendimento).ToString("C")}
+");
 
       Console.WriteLine($"Aperte 'Enter' para continuar");
       Console.ReadLine();
@@ -93,7 +101,7 @@ CNPJ: {novaPj.cnpj}
 
     case "0":
       Console.Clear();
-      Console.WriteLine($"Obrigado por utilizar nosso sistema");
+      // Console.WriteLine($"Obrigado por utilizar nosso sistema");
 
       BarraCarregamento("finalizando", 300);
 
