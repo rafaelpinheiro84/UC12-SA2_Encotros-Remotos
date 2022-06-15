@@ -11,7 +11,7 @@ namespace Cadastro_Pessoa_FS1.Classes
 
 
     //Metodos pessoaFisica:
-    public bool validarDatanascimento(DateTime dataNasc) //Recebendo um DateTime
+    public bool ValidarDatanascimento(DateTime dataNasc) //Recebendo um DateTime
     {
       DateTime dataAtual = DateTime.Today;
 
@@ -25,7 +25,7 @@ namespace Cadastro_Pessoa_FS1.Classes
       return false;
     }
 
-    public bool validarDatanascimento(string dataNasc) //Recebendo uma string
+    public bool ValidarDatanascimento(string dataNasc) //Recebendo uma string
     {
       DateTime dataConvertida;
 
@@ -36,7 +36,7 @@ namespace Cadastro_Pessoa_FS1.Classes
 
         double anos = (dataAtual - dataConvertida).TotalDays / 365;
 
-        if (anos >= 18)
+        if (anos >= 18 && anos < 120)
         {
           return true;
         }
