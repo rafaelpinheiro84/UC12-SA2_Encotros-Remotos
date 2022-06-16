@@ -13,7 +13,7 @@ Console.WriteLine(@$"
 BarraCarregamento("Carregando", 500);
 // Console.WriteLine($"Sem Cor!"); Para testar o Reset Color
 
-List<PessoaFisica> listaPf = new List<PessoaFisica>();
+List<PessoaFisica> listPf = new List<PessoaFisica>();
 List<PessoaJuridica> listPJ = new List<PessoaJuridica>();
 
 string? opcao;
@@ -40,7 +40,6 @@ do
     case "1":
       PessoaFisica metodoPf = new PessoaFisica();
 
-
       string? opcaoPf;
       do
       {
@@ -55,10 +54,8 @@ do
 |                                              |
 |          0 - Voltar ao Menu Anterior         |
 ================================================
-
 ");
         opcaoPf = Console.ReadLine();
-
 
         switch (opcaoPf)
         {
@@ -86,7 +83,7 @@ do
               else
               {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine($"Data digitada invalida, por favor digite uma data valida");
+                Console.WriteLine($"Data digitada invalida, por favor digite uma data valida.");
                 Console.ResetColor();
               }
 
@@ -125,7 +122,19 @@ do
 
             novaPf.endereco = novoEnd;
 
-            listaPf.Add(novaPf);
+            // listaPf.Add(novaPf);
+
+            //  StreamWriter sw = new StreamWriter($"{novaPf.nome}.txt");
+            //  sw.Write(novaPf.nome);
+            //  sw.Close();
+
+            /* // using (StreamWriter sw = new StreamWriter($"{novaPf.nome}.txt"))
+             // {
+             //   sw.Write($"{novaPf.nome},{novaPf.dataNascimento}");
+              }
+              */
+
+            metodoPf.Inserir(novaPf);
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"Cadastro realizado com sucesso!!!");
@@ -137,33 +146,66 @@ do
           case "2":
             Console.Clear();
 
-            if (listaPf.Count > 0)
+            //             if (listaPf.Count > 0)
+            //             {
+
+            //               foreach (PessoaFisica cadaPessoa in listaPf)
+            //               {
+            //                 Console.Clear();
+            //                 Console.WriteLine(@$"
+            // Nome: {cadaPessoa.nome}
+            // Endereco: {cadaPessoa.endereco.logradouro}, {cadaPessoa.endereco.numero}
+            // Data de Nascimento: {cadaPessoa.dataNascimento}
+            // Taxa de imposto a ser paga é; {metodoPf.PagarImposto(cadaPessoa.rendimento).ToString("C")}
+            // ");
+            //                 // ToString converte para padrao moeda e corta as casas decimais
+            //                 // ?:  if else
+
+            //                 Console.WriteLine($"Aperte 'Enter' para continuar");
+            //                 Console.ReadLine();
+            //               }
+
+            //             }
+            //             else
+            //             {
+            //               Console.WriteLine($"Lista vazia!!");
+            //               Thread.Sleep(3000);
+
+            //             }
+
+            /*
+            // using (StreamReader sr = new StreamReader("rafael.txt"))
+            // {
+
+            //   string linha;
+            //   while ((linha = sr.ReadLine()) != null)
+            //   {
+            //     Console.WriteLine($"{linha}");
+
+            //   }
+            // }
+           */
+
+            List<PessoaFisica> listaPf = metodoPf.Ler();
+
+            foreach (PessoaFisica cadaPefisica in listaPf)
             {
+              Console.Clear();
+              Console.WriteLine(@$"
+Nome: {cadaPefisica.nome}
+Data de Nascimento {cadaPefisica.dataNascimento}
+CPF: {cadaPefisica.cpf}
+ ");
 
-              foreach (PessoaFisica cadaPessoa in listaPf)
-              {
-                Console.Clear();
-                Console.WriteLine(@$"
-Nome: {cadaPessoa.nome}
-Endereco: {cadaPessoa.endereco.logradouro}, {cadaPessoa.endereco.numero}
-Data de Nascimento: {cadaPessoa.dataNascimento}
-Taxa de imposto a ser paga é; {metodoPf.PagarImposto(cadaPessoa.rendimento).ToString("C")}
-");
-                // ToString converte para padrao moeda e corta as casas decimais
-                // ?:  if else
-
-                Console.WriteLine($"Aperte 'Enter' para continuar");
-                Console.ReadLine();
-              }
-
-            }
-            else
-            {
-              Console.WriteLine($"Lista vazia!!");
-              Thread.Sleep(3000);
-
+              Console.WriteLine($"Aperte 'Enter' para continuar");
+              Console.ReadLine();
             }
 
+
+
+
+            // Console.WriteLine($"Aperte 'Enter' para continuar");
+            // Console.ReadLine();
 
             break;
 
@@ -261,7 +303,9 @@ Taxa de imposto a ser paga é; {metodoPf.PagarImposto(cadaPessoa.rendimento).ToS
             novaPj.rendimento = float.Parse(Console.ReadLine());
             Console.Clear();
 
-            listPJ.Add(novaPj);
+            // listPJ.Add(novaPj);
+
+            metodoPj.Inserir(novaPj);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($"Cadastro Realizado com sucesso!!!");
@@ -273,33 +317,52 @@ Taxa de imposto a ser paga é; {metodoPf.PagarImposto(cadaPessoa.rendimento).ToS
           case "2":
             Console.Clear();
 
-            if (listPJ.Count > 0)
-            {
+            // if (listPJ.Count > 0)
+            // {
 
-              foreach (PessoaJuridica cadaPejuridica in listPJ)
-              {
-                Console.Clear();
-                Console.WriteLine(@$"
+            //   foreach (PessoaJuridica cadaPejuridica in listPJ)
+            //   {
+            //     Console.Clear();
+            //     Console.WriteLine(@$"
+            // Nome: {cadaPejuridica.nome}
+            // Razão Social: {cadaPejuridica.razaoSocial}
+            // CNPJ: {cadaPejuridica.cnpj}
+            // Endereço:  {cadaPejuridica.endereco.logradouro}, {cadaPejuridica.endereco.numero}, {cadaPejuridica.endereco.complemento}
+
+            // Taxa de imposto a ser paga é: {metodoPj.PagarImposto(cadaPejuridica.rendimento).ToString("C")}
+            // ");
+            //     Console.WriteLine($"Aperte 'Enter' para continuar");
+            //     Console.ReadLine();
+
+
+            //   }
+            // }
+            // else
+            // {
+            //   Console.ForegroundColor = ConsoleColor.DarkBlue;
+            //   Console.WriteLine($"Lista Vazia!!!");
+            //   Thread.Sleep(3000);
+            //   Console.ResetColor();
+            // }
+
+
+
+            List<PessoaJuridica> listaPJ = metodoPj.Ler();
+
+            foreach (PessoaJuridica cadaPejuridica in listaPJ)
+            {
+              Console.Clear();
+              Console.WriteLine(@$"
 Nome: {cadaPejuridica.nome}
 Razão Social: {cadaPejuridica.razaoSocial}
 CNPJ: {cadaPejuridica.cnpj}
-Endereço:  {cadaPejuridica.endereco.logradouro}, {cadaPejuridica.endereco.numero}, {cadaPejuridica.endereco.complemento}
+Endereço: {cadaPejuridica.endereco}
+Rendimento: {cadaPejuridica.rendimento}");
 
-Taxa de imposto a ser paga é: {metodoPj.PagarImposto(cadaPejuridica.rendimento).ToString("C")}
-");
-                Console.WriteLine($"Aperte 'Enter' para continuar");
-                Console.ReadLine();
-
-
-              }
+              Console.WriteLine($"Aperte 'Enter' para continuar");
+              Console.ReadLine();
             }
-            else
-            {
-              Console.ForegroundColor = ConsoleColor.DarkBlue;
-              Console.WriteLine($"Lista Vazia!!!");
-              Thread.Sleep(3000);
-              Console.ResetColor();
-            }
+
 
             break;
 
@@ -319,7 +382,6 @@ Taxa de imposto a ser paga é: {metodoPj.PagarImposto(cadaPejuridica.rendimento)
 
     case "0":
       Console.Clear();
-      // Console.WriteLine($"Obrigado por utilizar nosso sistema");
 
       BarraCarregamento("finalizando..", 300);
 
@@ -349,4 +411,3 @@ static void BarraCarregamento(string texto, int tempo)
 
   Console.ResetColor();
 }
-

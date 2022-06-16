@@ -16,5 +16,25 @@ namespace Cadastro_Pessoa_FS1.Classes
     //interface a baixo
     public abstract float PagarImposto(float rendimento); //Abstrato, pq ele não tem conteudo, o conteudo estará em quem herda
 
+
+
+    public void VerificarPastaArquivo(string caminho)
+    {
+      string pasta = caminho.Split("/")[0];
+
+      if (!Directory.Exists(pasta))
+      {
+        Directory.CreateDirectory(pasta);
+      }
+
+      if (!File.Exists(caminho))
+      {
+        using (File.Create(caminho))
+        {
+
+        }
+
+      }
+    }
   }
 }
